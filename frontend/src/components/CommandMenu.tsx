@@ -15,6 +15,7 @@ import React from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { DialogTitle } from "./ui/dialog";
+import { basePath } from "@/config/siteConfig";
 
 export const formattedBadge = (type: string) => {
   switch (type) {
@@ -25,7 +26,7 @@ export const formattedBadge = (type: string) => {
         <Badge className="text-yellow-500/75 border-yellow-500/75">LXC</Badge>
       );
     case "misc":
-      return <Badge className="text-red-500/75 border-red-500/75">MISC</Badge>;
+      return <Badge className="text-green-500/75 border-green-500/75">MISC</Badge>;
   }
   return null;
 };
@@ -40,6 +41,7 @@ export default function CommandMenu() {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
+        fetchSortedCategories();
         setOpen((open) => !open);
       }
     };
@@ -93,7 +95,7 @@ export default function CommandMenu() {
               {category.scripts.map((script) => (
                 <CommandItem
                   key={`script:${script.slug}`}
-                  value={script.slug}
+                  value={`${script.slug}-${script.name}`}
                   onSelect={() => {
                     setOpen(false);
                     router.push(`/scripts?id=${script.slug}`);
@@ -101,11 +103,12 @@ export default function CommandMenu() {
                 >
                   <div className="flex gap-2" onClick={() => setOpen(false)}>
                     <Image
-                      src={script.logo || "/logo.png"}
+                      src={script.logo || `/${basePath}/logo.png`}
                       onError={(e) =>
                         ((e.currentTarget as HTMLImageElement).src =
-                          "/logo.png")
+                          `/${basePath}/logo.png`)
                       }
+                      unoptimized
                       width={16}
                       height={16}
                       alt=""

@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { basePath } from "@/config/siteConfig";
 
 export default function ScriptAccordion({
   items,
@@ -55,7 +56,7 @@ export default function ScriptAccordion({
       value={expandedItem}
       onValueChange={handleAccordionChange}
       collapsible
-      className="overflow-y-scroll max-h-[calc(100vh-210px)] overflow-x-hidden pb-4"
+      className="overflow-y-scroll max-h-[calc(100vh-220px)] overflow-x-hidden mt-3 p-2"
     >
       {items.map((category) => (
         <AccordionItem
@@ -71,7 +72,7 @@ export default function ScriptAccordion({
             )}
           >
             <div className="mr-2 flex w-full items-center justify-between">
-              <span className="pl-2">{category.name} </span>
+              <span className="pl-2 text-left">{category.name} </span>
               <span className="rounded-full bg-gray-200 px-2 py-1 text-xs text-muted-foreground hover:no-underline dark:bg-blue-800/20">
                 {category.scripts.length}
               </span>
@@ -104,13 +105,13 @@ export default function ScriptAccordion({
                   >
                     <div className="flex items-center">
                       <Image
-                        src={script.logo || "/logo.png"}
+                        src={script.logo || `/${basePath}/logo.png`}
                         height={16}
                         width={16}
                         unoptimized
                         onError={(e) =>
                           ((e.currentTarget as HTMLImageElement).src =
-                            "/logo.png")
+                            `/${basePath}/logo.png`)
                         }
                         alt={script.name}
                         className="mr-1 w-4 h-4 rounded-full"

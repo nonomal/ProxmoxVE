@@ -1,3 +1,5 @@
+import { AlertColors } from "@/config/siteConfig";
+
 export type Script = {
   name: string;
   slug: string;
@@ -19,26 +21,38 @@ export type Script = {
       ram: number | null;
       hdd: number | null;
       os: string | null;
-      version: number | null;
+      version: string | null;
     };
   }[];
   default_credentials: {
     username: string | null;
     password: string | null;
   };
-  notes: [{
-    text: string;
-    type: string;
-  }]
-}
+  notes: [
+    {
+      text: string;
+      type: keyof typeof AlertColors;
+    },
+  ];
+};
 
 export type Category = {
   name: string;
   id: number;
   sort_order: number;
   scripts: Script[];
+};
+
+export type Metadata = {
+  categories: Category[];
+};
+
+export interface Version {
+  name: string;
+  slug: string;
 }
 
-export type ScriptList = {
-  categories: Category[];
+export interface OperatingSystem {
+  name: string;
+  versions: Version[];
 }

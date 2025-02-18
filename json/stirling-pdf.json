@@ -2,13 +2,13 @@
     "name": "Stirling-PDF",
     "slug": "stirling-pdf",
     "categories": [
-        14
+        12
     ],
     "date_created": "2024-05-02",
     "type": "ct",
     "updateable": true,
     "privileged": false,
-    "interface_port": "8080",
+    "interface_port": 8080,
     "documentation": null,
     "website": "https://github.com/Stirling-Tools/Stirling-PDF",
     "logo": "https://raw.githubusercontent.com/Stirling-Tools/Stirling-PDF/main/docs/stirling-pdf.png",
@@ -18,9 +18,9 @@
             "type": "default",
             "script": "ct/stirling-pdf.sh",
             "resources": {
-                "cpu": "2",
-                "ram": "2048",
-                "hdd": "8",
+                "cpu": 2,
+                "ram": 2048,
+                "hdd": 8,
                 "os": "debian",
                 "version": "12"
             }

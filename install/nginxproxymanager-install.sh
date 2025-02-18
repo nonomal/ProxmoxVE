@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2024 tteck
+# Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
 # License: MIT
 # https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
@@ -80,7 +80,7 @@ else
   cd ./nginx-proxy-manager-${RELEASE}
   msg_ok "Downloaded Nginx Proxy Manager v${RELEASE}"
 fi
-msg_info "Setting up Enviroment"
+msg_info "Setting up Environment"
 ln -sf /usr/bin/python3 /usr/bin/python
 ln -sf /usr/bin/certbot /opt/certbot/bin/certbot
 ln -sf /usr/local/openresty/nginx/sbin/nginx /usr/sbin/nginx

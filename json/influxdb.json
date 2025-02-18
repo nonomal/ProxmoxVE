@@ -2,13 +2,13 @@
     "name": "InfluxDB",
     "slug": "influxdb",
     "categories": [
-        5
+        8
     ],
     "date_created": "2024-05-02",
     "type": "ct",
     "updateable": false,
     "privileged": false,
-    "interface_port": "8086",
+    "interface_port": 8086,
     "documentation": null,
     "website": "https://www.influxdata.com/",
     "logo": "https://raw.githubusercontent.com/loganmarchione/homelab-svg-assets/main/assets/influx.svg",
@@ -18,9 +18,9 @@
             "type": "default",
             "script": "ct/influxdb.sh",
             "resources": {
-                "cpu": "2",
-                "ram": "2048",
-                "hdd": "8",
+                "cpu": 2,
+                "ram": 2048,
+                "hdd": 8,
                 "os": "debian",
                 "version": "12"
             }

@@ -4,9 +4,9 @@ import { basePath } from "@/config/siteConfig";
 import { Script } from "@/lib/types";
 import { getDisplayValueFromType } from "../ScriptInfoBlocks";
 
-const getInstallCommand = (scriptPath?: string) => {
-  return `bash -c "$(wget -qLO - https://github.com/community-scripts/${basePath}/raw/main/${scriptPath})"`;
-}
+const getInstallCommand = (scriptPath?: string, isAlpine = false) => {
+  return `bash -c "$(wget -q${isAlpine ? "" : "L"}O - https://github.com/community-scripts/${basePath}/raw/main/${scriptPath})"`;
+};
 
 export default function InstallCommand({ item }: { item: Script }) {
   const alpineScript = item.install_methods.find(
@@ -14,7 +14,7 @@ export default function InstallCommand({ item }: { item: Script }) {
   );
 
   const defaultScript = item.install_methods.find(
-    (method) => method.type === "default"
+    (method) => method.type === "default",
   );
 
   const renderInstructions = (isAlpine = false) => (
@@ -28,15 +28,16 @@ export default function InstallCommand({ item }: { item: Script }) {
             time and minimal system resource usage. You are also obliged to
             adhere to updates provided by the package maintainer.
           </>
-        ) : item.type ? (
+        ) : item.type == "misc" ? (
           <>
-            To create a new Proxmox VE {item.name}{" "}
-            {getDisplayValueFromType(item.type)}, run the command below in the
-            Proxmox VE Shell.
+            To use the {item.name} script, run the command below in the shell.
           </>
         ) : (
           <>
-            To use the {item.name} script, run the command below in the shell.
+            {" "}
+            To create a new Proxmox VE {item.name}{" "}
+            {getDisplayValueFromType(item.type)}, run the command below in the
+            Proxmox VE Shell.
           </>
         )}
       </p>
@@ -60,12 +61,14 @@ export default function InstallCommand({ item }: { item: Script }) {
           </TabsList>
           <TabsContent value="default">
             {renderInstructions()}
-            <CodeCopyButton>{getInstallCommand(defaultScript?.script)}</CodeCopyButton>
+            <CodeCopyButton>
+              {getInstallCommand(defaultScript?.script)}
+            </CodeCopyButton>
           </TabsContent>
           <TabsContent value="alpine">
             {renderInstructions(true)}
             <CodeCopyButton>
-              {getInstallCommand(alpineScript.script)}
+              {getInstallCommand(alpineScript.script, true)}
             </CodeCopyButton>
           </TabsContent>
         </Tabs>

@@ -2,13 +2,13 @@
     "name": "evcc",
     "slug": "evcc",
     "categories": [
-        0
+        16
     ],
     "date_created": "2024-10-15",
     "type": "ct",
     "updateable": false,
     "privileged": false,
-    "interface_port": "7070",
+    "interface_port": 7070,
     "documentation": "https://evcc.io/#devices",
     "website": "https://evcc.io/en/",
     "logo": "https://docs.evcc.io/en/img/logo.svg",
@@ -18,9 +18,9 @@
             "type": "default",
             "script": "ct/evcc.sh",
             "resources": {
-                "cpu": "1",
-                "ram": "1024",
-                "hdd": "4",
+                "cpu": 1,
+                "ram": 1024,
+                "hdd": 4,
                 "os": "debian",
                 "version": "12"
             }
@@ -32,8 +32,8 @@
     },
     "notes": [
         {
-            "text": "entering `evcc configure` in the LXC terminal will guide you through the creation of a configuration file for evcc.",
-            "type": "warning"
+            "text": "To configure evcc, type `cd /etc` followed by `evcc configure` in the evcc LXC shell",
+            "type": "info"
         }
     ]
 }

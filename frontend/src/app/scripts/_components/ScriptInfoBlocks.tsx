@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { mostPopularScripts } from "@/config/siteConfig";
+import { basePath, mostPopularScripts } from "@/config/siteConfig";
 import { extractDate } from "@/lib/time";
 import { Category, Script } from "@/lib/types";
 import { CalendarPlus } from "lucide-react";
@@ -35,8 +35,18 @@ export function LatestScripts({ items }: { items: Category[] }) {
 
   const latestScripts = useMemo(() => {
     if (!items) return [];
+    
     const scripts = items.flatMap((category) => category.scripts || []);
-    return scripts.sort(
+
+    // Filter out duplicates by slug
+    const uniqueScriptsMap = new Map<string, Script>();
+    scripts.forEach((script) => {
+      if (!uniqueScriptsMap.has(script.slug)) {
+        uniqueScriptsMap.set(script.slug, script);
+      }
+    });
+
+    return Array.from(uniqueScriptsMap.values()).sort(
       (a, b) =>
         new Date(b.date_created).getTime() - new Date(a.date_created).getTime(),
     );
@@ -49,7 +59,7 @@ export function LatestScripts({ items }: { items: Category[] }) {
   const goToPreviousPage = () => {
     setPage((prevPage) => prevPage - 1);
   };
-
+  
   const startIndex = (page - 1) * ITEMS_PER_PAGE;
   const endIndex = page * ITEMS_PER_PAGE;
 
@@ -90,13 +100,17 @@ export function LatestScripts({ items }: { items: Category[] }) {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
-                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-accent p-1">
+                <div className="flex h-16 w-16 min-w-16 items-center justify-center rounded-lg bg-accent p-1">
                   <Image
-                    src={script.logo || "/logo.png"}
+                    src={script.logo || `/${basePath}/logo.png`}
                     unoptimized
                     height={64}
                     width={64}
                     alt=""
+                    onError={(e) =>
+                      ((e.currentTarget as HTMLImageElement).src =
+                        `/${basePath}/logo.png`)
+                    }
                     className="h-11 w-11 object-contain"
                   />
                 </div>
@@ -138,7 +152,7 @@ export function LatestScripts({ items }: { items: Category[] }) {
 export function MostViewedScripts({ items }: { items: Category[] }) {
   const mostViewedScripts = items.reduce((acc: Script[], category) => {
     const foundScripts = category.scripts.filter((script) =>
-      mostPopularScripts.includes(script.name),
+      mostPopularScripts.includes(script.slug),
     );
     return acc.concat(foundScripts);
   }, []);
@@ -158,13 +172,17 @@ export function MostViewedScripts({ items }: { items: Category[] }) {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
-                <div className="flex max-h-16 min-h-16 min-w-16 max-w-16 items-center justify-center rounded-lg bg-accent p-1">
+                <div className="flex size-16 min-w-16 items-center justify-center rounded-lg bg-accent p-1">
                   <Image
                     unoptimized
-                    src={script.logo || "/logo.png"}
+                    src={script.logo || `/${basePath}/logo.png`}
                     height={64}
                     width={64}
                     alt=""
+                    onError={(e) =>
+                      ((e.currentTarget as HTMLImageElement).src =
+                        `/${basePath}/logo.png`)
+                    }
                     className="h-11 w-11 object-contain"
                   />
                 </div>

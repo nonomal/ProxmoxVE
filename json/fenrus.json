@@ -2,13 +2,13 @@
     "name": "Fenrus",
     "slug": "fenrus",
     "categories": [
-        15
+        10
     ],
     "date_created": "2024-05-05",
     "type": "ct",
     "updateable": false,
     "privileged": false,
-    "interface_port": "5000",
+    "interface_port": 5000,
     "documentation": null,
     "website": "https://github.com/revenz/Fenrus",
     "logo": "https://raw.githubusercontent.com/revenz/Fenrus/master/wwwroot/fenrus.svg",
@@ -18,9 +18,9 @@
             "type": "default",
             "script": "ct/fenrus.sh",
             "resources": {
-                "cpu": "1",
-                "ram": "512",
-                "hdd": "4",
+                "cpu": 1,
+                "ram": 512,
+                "hdd": 4,
                 "os": "debian",
                 "version": "12"
             }

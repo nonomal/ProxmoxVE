@@ -2,13 +2,13 @@
     "name": "Glances",
     "slug": "glances",
     "categories": [
-        7
+        9
     ],
     "date_created": "2024-05-02",
     "type": "misc",
     "updateable": false,
     "privileged": false,
-    "interface_port": "61208",
+    "interface_port": 61208,
     "documentation": null,
     "website": "https://nicolargo.github.io/glances/",
     "logo": "https://raw.githubusercontent.com/nicolargo/glances/develop/docs/_static/Glances%20Logo.svg",
